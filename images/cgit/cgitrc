@@ -1,0 +1,42 @@
+# cgit default config
+
+virtual-root=/
+css=/cgit.css
+logo=/cgit.png
+#root-title=
+#root-desc=
+
+mimetype.gif=image/gif
+mimetype.html=text/html
+mimetype.jpg=image/jpeg
+mimetype.jpeg=image/jpeg
+mimetype.pdf=application/pdf
+mimetype.png=image/png
+mimetype.svg=image/svg+xml
+
+source-filter=/usr/lib/cgit/filters/syntax-highlighting.py
+about-filter=/usr/lib/cgit/filters/about-formatting.sh
+
+enable-html-serving=1
+enable-http-clone=1
+
+#enable-index-owner=1
+enable-blame=1
+enable-commit-graph=1
+enable-log-filecount=1
+enable-log-linecount=1
+
+enable-index-links=1
+
+readme=:readme.html
+readme=:README.md
+readme=:readme.md
+
+robots=noindex, nofollow
+
+# List of repositories.
+
+#repo.url=
+#repo.path=
+#repo.desc=
+#repo.owner=

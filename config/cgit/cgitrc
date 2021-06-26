@@ -1,0 +1,81 @@
+# cgit config
+
+virtual-root=/
+css=/cgit.css
+logo=/cgit.png
+root-title=Repositorios de haztecaso
+root-desc=Proyectos y configuraciones varias.
+
+mimetype.gif=image/gif
+mimetype.html=text/html
+mimetype.jpg=image/jpeg
+mimetype.jpeg=image/jpeg
+mimetype.pdf=application/pdf
+mimetype.png=image/png
+mimetype.svg=image/svg+xml
+
+source-filter=/usr/lib/cgit/filters/syntax-highlighting.py
+about-filter=/usr/lib/cgit/filters/about-formatting.sh
+
+enable-html-serving=1
+enable-http-clone=1
+
+#enable-index-owner=1
+enable-blame=1
+enable-commit-graph=1
+enable-log-filecount=1
+enable-log-linecount=1
+
+enable-index-links=1
+
+readme=:readme.html
+readme=:README.md
+readme=:readme.md
+
+robots=noindex, nofollow
+
+# List of repositories.
+
+repo.url=entrega-opti
+repo.path=/srv/git/entrega-opti.git
+repo.desc=Entrega de Optimización. DEGP y ramificación y corte.
+repo.owner=Adrian
+
+repo.url=nix-config
+repo.path=/srv/git/nix-config.git
+repo.desc=Declarative os configuration
+
+repo.url=impo
+repo.path=/srv/git/impo.git
+repo.desc=Imposicionar documentos para encuadernaciones caseras
+
+repo.url=annu-src
+repo.path=/srv/git/annu.git
+repo.desc=Prácticas de Análisis numérico.
+
+repo.url=declarativa-src
+repo.path=/srv/git/declarativa-src.git
+repo.desc=Ejercicios y programas de Programación declarativa.
+
+repo.url=edat-src
+repo.path=/srv/git/edat-src.git
+repo.desc=Ejercicios y programas de Estructuras de datos.
+
+repo.url=dial-src
+repo.path=/srv/git/dial-src.git
+repo.desc=Ejercicios y programas de Diseño de algoritmos.
+
+repo.url=paralela-src
+repo.path=/srv/git/paralela-src.git
+repo.desc=Ejercicios, programas e ideas de programación paralela.
+
+repo.url=mttt
+repo.path=/srv/git/mttt.git
+repo.desc=Entrega de Programación Declarativa.
+
+repo.url=web-radio
+repo.path=/srv/git/web-radio.git
+
+#repo.url=lagransala
+#repo.path=/srv/git/lagransala.git
+#repo.desc=Web de lagransala.org

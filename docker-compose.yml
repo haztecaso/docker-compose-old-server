@@ -1,0 +1,65 @@
+version: "3.9"
+services:
+  nginx:
+    image: nginx:alpine
+    container_name: nginx 
+    restart: unless-stopped 
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./config/nginx:/etc/nginx
+      - /etc/letsencrypt:/etc/letsencrypt
+      - /srv/http:/srv/http
+
+  cgit:
+    build: images/cgit
+    container_name: cgit
+    depends_on:
+      - nginx
+    restart: unless-stopped 
+    volumes:
+      - /srv/git:/srv/git
+      - ./config/cgit/cgitrc:/etc/cgitrc
+
+  vaultwarden:
+    image: vaultwarden/server:alpine
+    container_name: vaultwarden
+    depends_on:
+      - nginx
+    restart: unless-stopped 
+    environment:
+      - WEBSOCKET_ENABLED=true  # Enable WebSocket notifications.
+    ports:
+      - 8081:80
+    volumes:
+      - /srv/vaultwarden:/data
+
+  mariadb:
+    image: yobasystems/alpine-mariadb:latest
+    container_name: mariadb
+    depends_on:
+      - nginx
+    restart: unless-stopped
+    environment:
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+      - MYSQL_PASSWORD=NGexlbOxAX5MlPYTSsNN
+    volumes:
+      - db:/var/lib/mysql
+
+  nextcloud:
+    image: nextcloud:21.0-fpm-alpine
+    container_name: nextcloud
+    depends_on:
+      - nginx
+      - mariadb
+    restart: unless-stopped
+    environment:
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+      - MYSQL_PASSWORD=NGexlbOxAX5MlPYTSsNN
+
+volumes:
+  db: 
+  git:
