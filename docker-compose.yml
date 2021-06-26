@@ -13,7 +13,7 @@ services:
       - /srv/http:/srv/http
 
   cgit:
-    build: images/cgit
+    build: ./cgit
     container_name: cgit
     depends_on:
       - nginx
