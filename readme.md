@@ -15,6 +15,7 @@ Ideas for containerizing my home server.
 - **nginx**
   - web server + proxy + certs management
   - *volumes*: certs + config + www
+- pihole for lan
 - **git**
   - git with ssh access
   - cgit
