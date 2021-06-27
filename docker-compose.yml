@@ -1,4 +1,5 @@
-version: "3.9"
+version: "3.8"
+
 services:
   nginx:
     image: nginx:alpine
@@ -30,14 +31,12 @@ services:
     restart: unless-stopped 
     environment:
       - WEBSOCKET_ENABLED=true  # Enable WebSocket notifications.
-    ports:
-      - 8081:80
     volumes:
       - /srv/vaultwarden:/data
 
   mariadb:
     image: yobasystems/alpine-mariadb:latest
-    container_name: mariadb
+    container_name: mariadb_nextcloud
     depends_on:
       - nginx
     restart: unless-stopped

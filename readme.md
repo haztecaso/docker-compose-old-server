@@ -2,7 +2,15 @@
 
 Ideas for containerizing my home server.
 
+## Ideas and todos
+
+- Use docker volumes.
+- Use docker secrets.
+- Backup docker volumes: [blacklabelops/volumerize](https://hub.docker.com/r/blacklabelops/volumerize/).
+
 ## Containers
+
+### Working 
 
 - **nginx**
   - web server + proxy + certs management
@@ -13,5 +21,8 @@ Ideas for containerizing my home server.
   - *volumes*: keys + repos
 - **vaultwarden**
   - *volume*: vaultwarden_data
+
+### WIP
+
 - **mariadb_nextcloud**
 - **nextcloud**
