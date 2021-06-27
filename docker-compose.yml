@@ -40,12 +40,10 @@ services:
     depends_on:
       - nginx
     restart: unless-stopped
-    environment:
-      - MYSQL_DATABASE=nextcloud
-      - MYSQL_USER=nextcloud
-      - MYSQL_PASSWORD=NGexlbOxAX5MlPYTSsNN
+    env_file:
+      - .env
     volumes:
-      - db:/var/lib/mysql
+      - nextcloud_db:/var/lib/mysql
 
   nextcloud:
     image: nextcloud:21.0-fpm-alpine
@@ -54,11 +52,11 @@ services:
       - nginx
       - mariadb
     restart: unless-stopped
-    environment:
-      - MYSQL_DATABASE=nextcloud
-      - MYSQL_USER=nextcloud
-      - MYSQL_PASSWORD=NGexlbOxAX5MlPYTSsNN
+    env_file:
+      - .env
 
 volumes:
-  db: 
+  nextcloud_db: 
   git:
+  etc-pihole:
+  etc-dnsmasqd:
