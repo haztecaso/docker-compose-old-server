@@ -1,0 +1,30 @@
+version: "3.8"
+services:
+  icecast:
+    image: infiniteproject/icecast
+    container_name: "radio_icecast"
+    ports:
+      - "${ICECAST_PORT:-8000}:8000"
+    environment:
+      - ICECAST_SOURCE_PASSWORD
+      - ICECAST_ADMIN_PASSWORD
+      - ICECAST_RELAY_PASSWORD
+      - ICECAST_MAX_SOURCES
+      - ICECAST_ADMIN_EMAIL
+      - ICECAST_HOSTNAME=icecast
+    restart: unless-stopped
+  liquidsoap:
+    image: "savonet/liquidsoap:v1.4.3"
+    container_name: "radio_liquidsoap"
+    depends_on: [icecast]
+    command: "liquidsoap /script.liq"
+    volumes:
+      - "${MUSIC_DIR}:/music:ro"
+      - "./dotfiles/script.liq:/script.liq:ro"
+    environment:
+      - ICECAST_SOURCE_PASSWORD
+      - STREAM_NAME
+      - STREAM_DESC
+      - STREAM_URL
+      - STREAM_MOUNTPOINT
+    restart: unless-stopped

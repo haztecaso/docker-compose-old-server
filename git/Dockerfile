@@ -3,7 +3,7 @@ FROM alpine:latest
 MAINTAINER Adrián Lattes Grassi <adrianlattes@disroot.org>
 
 RUN apk add openssh git cgit && ssh-keygen -A\
- && addgroup -S git && adduser -S git -G git\
+ && addgroup -S git && adduser -S git -u 1000 -G git\
  && mkdir /srv/git && chown git:git /srv/git
 
 EXPOSE 22

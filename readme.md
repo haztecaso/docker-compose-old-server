@@ -28,4 +28,5 @@ Ideas for containerizing my home server.
 
 - **git**
 - [**nextcloud**](https://github.com/nextcloud/docker/tree/master/.examples/docker-compose/with-nginx-proxy/mariadb/fpm)
+- **radio**: liquidsoap + icecast. For now in `./radio`.
 
