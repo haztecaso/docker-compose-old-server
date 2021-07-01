@@ -1,16 +1,16 @@
 all: push up
 
 build:
-	ssh hcr 'cd docker && docker-compose build'
+	ssh hcr 'cd haztecaso&& docker-compose build'
 
 push:
-	rsync -aPz . hcr:docker --exclude .git --delete --delete-excluded
+	rsync -aPz . hcr:haztecaso --exclude .git --delete --delete-excluded
 
 up:
-	ssh hcr 'cd docker && docker-compose up -d'
+	ssh hcr 'cd haztecaso && docker-compose up -d'
 
 restart:
-	ssh hcr 'cd docker && docker-compose restart'
+	ssh hcr 'cd haztecaso && docker-compose restart'
 
 watch:
 	nix-shell -p entr --run 'ls . | entr make push'

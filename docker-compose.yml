@@ -22,6 +22,7 @@ services:
       - "53:53/tcp"
       - "53:53/udp"
       - "67:67/udp"
+      - "8888:80"
     env_file:
       - .env
     environment:
@@ -33,8 +34,21 @@ services:
     cap_add:
       - NET_ADMIN
 
+  git:
+    build: ./git
+    image: haztecaso/git
+    container_name: git
+    restart: unless-stopped 
+    ports:
+      - "2222:22"
+    volumes:
+      - ./config/git/sshd_config:/etc/ssh/sshd_config:ro
+      - ./config/git/authorized_keys:/home/git/.ssh/authorized_keys:ro
+      - /srv/git:/srv/git
+
   cgit:
     build: ./cgit
+    image: haztecaso/cgit
     container_name: cgit
     depends_on:
       - nginx
@@ -58,6 +72,7 @@ services:
     extends:
       file: nextcloud.yml
       service: nextcloud
+
 volumes:
   etc-pihole:
   etc-dnsmasqd:
