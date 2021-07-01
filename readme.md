@@ -7,6 +7,7 @@ Ideas for containerizing my home server.
 - Use docker volumes.
 - Use docker secrets.
 - Backup docker volumes: [blacklabelops/volumerize](https://hub.docker.com/r/blacklabelops/volumerize/).
+- Letsencrypt auto renew + proxy
 
 ## Containers
 
@@ -25,5 +26,5 @@ Ideas for containerizing my home server.
 
 ### WIP
 
-- **mariadb_nextcloud**
 - [**nextcloud**](https://github.com/nextcloud/docker/tree/master/.examples/docker-compose/with-nginx-proxy/mariadb/fpm)
+
