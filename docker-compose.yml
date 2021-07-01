@@ -9,9 +9,10 @@ services:
       - 80:80
       - 443:443
     volumes:
-      - ./config/nginx:/etc/nginx
-      - /etc/letsencrypt:/etc/letsencrypt
-      - /srv/http:/srv/http
+      - ./config/nginx:/etc/nginx:ro
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+      - /srv/http:/srv/http:ro
+      - nextcloud:/var/www/html:ro
 
   pihole:
     image: pihole/pihole:latest
@@ -39,8 +40,8 @@ services:
       - nginx
     restart: unless-stopped 
     volumes:
-      - /srv/git:/srv/git
-      - ./config/cgit/cgitrc:/etc/cgitrc
+      - ./config/cgit/cgitrc:/etc/cgitrc:ro
+      - /srv/git:/srv/git:ro
 
   vaultwarden:
     image: vaultwarden/server:alpine
@@ -53,29 +54,12 @@ services:
     volumes:
       - /srv/vaultwarden:/data
 
-  mariadb:
-    image: yobasystems/alpine-mariadb:latest
-    container_name: mariadb_nextcloud
-    depends_on:
-      - nginx
-    restart: unless-stopped
-    env_file:
-      - .env
-    volumes:
-      - nextcloud_db:/var/lib/mysql
-
   nextcloud:
-    image: nextcloud:21.0-fpm-alpine
-    container_name: nextcloud
-    depends_on:
-      - nginx
-      - mariadb
-    restart: unless-stopped
-    env_file:
-      - .env
-
+    extends:
+      file: nextcloud.yml
+      service: nextcloud
 volumes:
-  nextcloud_db: 
-  git:
   etc-pihole:
   etc-dnsmasqd:
+  git:
+  nextcloud:

@@ -26,4 +26,4 @@ Ideas for containerizing my home server.
 ### WIP
 
 - **mariadb_nextcloud**
-- **nextcloud**
+- [**nextcloud**](https://github.com/nextcloud/docker/tree/master/.examples/docker-compose/with-nginx-proxy/mariadb/fpm)
