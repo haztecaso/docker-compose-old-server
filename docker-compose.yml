@@ -9,6 +9,7 @@ services:
       - 80:80
       - 443:443
     volumes:
+      - nginx_logs:/var/log/nginx
       - ./config/nginx:/etc/nginx:ro
       - /etc/letsencrypt:/etc/letsencrypt:ro
       - /srv/http:/srv/http:ro
@@ -30,6 +31,7 @@ services:
       - WEBPASSWORD=$PIHOLE_PASSWORD
     volumes:
       - etc-pihole:/etc/pihole
+      - ./config/pihole/custom.list:/etc/pihole/custom.list:ro
       - etc-dnsmasqd:/etc/dnsmasq.d/
     cap_add:
       - NET_ADMIN
@@ -68,13 +70,77 @@ services:
     volumes:
       - /srv/vaultwarden:/data
 
+  icecast:
+    image: infiniteproject/icecast
+    container_name: "icecast"
+    env_file:
+      - .env
+    environment:
+      - ICECAST_SOURCE_PASSWORD
+      - ICECAST_ADMIN_PASSWORD
+      - ICECAST_RELAY_PASSWORD
+      - ICECAST_MAX_SOURCES
+      - ICECAST_ADMIN_EMAIL
+      - ICECAST_HOSTNAME=icecast
+    restart: unless-stopped
+
+  liquidsoap:
+    image: "savonet/liquidsoap:v1.4.3"
+    container_name: "liquidsoap"
+    depends_on: [icecast]
+    command: "liquidsoap /script.liq"
+    volumes:
+      - "${MUSIC_DIR}:/music:ro"
+      - "./config/liquidsoap/script.liq:/script.liq:ro"
+    env_file:
+      - .env
+    environment:
+      - ICECAST_SOURCE_PASSWORD
+      - STREAM_NAME
+      - STREAM_DESC
+      - STREAM_URL
+      - STREAM_MOUNTPOINT
+    restart: unless-stopped
+
   nextcloud:
-    extends:
-      file: nextcloud.yml
-      service: nextcloud
+    image: nextcloud:21.0-fpm-alpine
+    container_name: nextcloud
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - nextcloud:/var/www/html
+    environment:
+      - MYSQL_HOST=nextcloud_db
+      - REDIS_HOST=nextcloud_redis
+
+  nextcloud_db:
+    image: yobasystems/alpine-mariadb:latest
+    container_name: nextcloud_db
+    restart: unless-stopped
+    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
+    env_file:
+      - .env
+    volumes:
+      - nextcloud_db:/var/lib/mysql
+
+  nextcloud_redis:
+    image: redis:alpine
+    container_name: nextcloud_redis
+    restart: unless-stopped
+
+  nextcloud_cron:
+    image: nextcloud:21.0-fpm-alpine
+    container_name: nextcloud_cron
+    restart: unless-stopped
+    volumes:
+      - nextcloud:/var/www/html
+    entrypoint: /cron.sh
 
 volumes:
+  nginx_logs:
   etc-pihole:
   etc-dnsmasqd:
   git:
   nextcloud:
+  nextcloud_db:

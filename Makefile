@@ -7,7 +7,7 @@ push:
 	rsync -aPz . hcr:haztecaso --exclude .git --delete --delete-excluded
 
 up:
-	ssh hcr 'cd haztecaso && docker-compose up -d'
+	ssh hcr 'cd haztecaso && docker-compose up -d --remove-orphans'
 
 restart:
 	ssh hcr 'cd haztecaso && docker-compose restart'
