@@ -1,12 +1,12 @@
 all: push up
 
-build:
+build: push
 	ssh hcr 'cd haztecaso&& docker-compose build'
 
 push:
 	rsync -aPz . hcr:haztecaso --exclude .git --delete --delete-excluded
 
-up:
+up: push
 	ssh hcr 'cd haztecaso && docker-compose up -d --remove-orphans'
 
 restart:
