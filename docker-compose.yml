@@ -33,11 +33,12 @@ services:
       - etc-pihole:/etc/pihole
       - ./config/pihole/custom.list:/etc/pihole/custom.list:ro
       - etc-dnsmasqd:/etc/dnsmasq.d/
+      - pihole-logs:/var/log/
     cap_add:
       - NET_ADMIN
 
   git:
-    build: ./git
+    build: ./images/git
     image: haztecaso/git
     container_name: git
     restart: unless-stopped 
@@ -49,7 +50,7 @@ services:
       - /srv/git:/srv/git
 
   cgit:
-    build: ./cgit
+    build: ./images/cgit
     image: haztecaso/cgit
     container_name: cgit
     depends_on:
@@ -136,11 +137,21 @@ services:
     volumes:
       - nextcloud:/var/www/html
     entrypoint: /cron.sh
+  moodle_dl:
+    build: ./images/moodle_dl
+    image: haztecaso/moodle_dl
+    container_name: moodle_dl
+    restart: unless-stopped 
+    volumes:
+      - moodle_dl:/moodle_dl
+      - ./config/moodle_dl/config.json:/moodle_dl/config.json
 
 volumes:
   nginx_logs:
   etc-pihole:
+  pihole-logs:
   etc-dnsmasqd:
   git:
   nextcloud:
   nextcloud_db:
+  moodle_dl:

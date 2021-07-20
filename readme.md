@@ -2,6 +2,13 @@
 
 Ideas for containerizing my home server.
 
+## Install
+```
+git clone https://github.com/haztecaso/haztecaso.com
+git submodule init
+git submodule update
+```
+
 ## Ideas and todos
 
 - Use docker volumes.
