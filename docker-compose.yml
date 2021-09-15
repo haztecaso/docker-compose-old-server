@@ -60,6 +60,18 @@ services:
       - ./config/cgit/cgitrc:/etc/cgitrc:ro
       - /srv/git:/srv/git:ro
 
+  meshcentral:
+    build: ./images/meshcentral
+    image: haztecaso/meshcentral
+    container_name: meshcentral
+    restart: unless-stopped 
+    ports:
+      - "5000:443"
+    volumes:
+        - ./config/meshcentral/config.json:/home/node/meshcentral/meshcentral-data/config.json
+        - meshcentral-data:/home/node/meshcentral/meshcentral-data
+        - meshcentral-files:/home/node/meshcentral/meshcentral-files
+
   vaultwarden:
     image: vaultwarden/server:alpine
     container_name: vaultwarden
@@ -148,6 +160,10 @@ services:
 
 volumes:
   nginx_logs:
+  git:
+  etc-dnsmasqd:
+  meshcentral-data:
+  meshcentral-files:
   etc-pihole:
   pihole-logs:
   etc-dnsmasqd:

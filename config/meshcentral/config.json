@@ -1,0 +1,14 @@
+{
+  "settings": {
+    "Cert": "mesh.haztecaso.com",
+    "Port": 443,
+    "RedirPort": 80,
+    "AgentPong": 300,
+    "TlsOffload": "nginx"
+  },
+  "domains": {
+    "": {
+      "certUrl": "https://nginx:443/"
+    }
+  }
+}
