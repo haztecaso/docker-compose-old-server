@@ -13,7 +13,6 @@ services:
       - ./config/nginx:/etc/nginx:ro
       - /etc/letsencrypt:/etc/letsencrypt:ro
       - /srv/http:/srv/http:ro
-      - nextcloud:/var/www/html:ro
 
   pihole:
     image: pihole/pihole:latest
