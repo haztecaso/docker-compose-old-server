@@ -129,41 +129,6 @@ services:
       - 22000:22000/udp
     restart: unless-stopped
 
-  # nextcloud:
-  #   image: nextcloud:21.0-fpm-alpine
-  #   container_name: nextcloud
-  #   restart: unless-stopped
-  #   env_file:
-  #     - .env
-  #   volumes:
-  #     - nextcloud:/var/www/html
-  #   environment:
-  #     - MYSQL_HOST=nextcloud_db
-  #     - REDIS_HOST=nextcloud_redis
-
-  # nextcloud_db:
-  #   image: yobasystems/alpine-mariadb:latest
-  #   container_name: nextcloud_db
-  #   restart: unless-stopped
-  #   command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
-  #   env_file:
-  #     - .env
-  #   volumes:
-  #     - nextcloud_db:/var/lib/mysql
-
-  # nextcloud_redis:
-  #   image: redis:alpine
-  #   container_name: nextcloud_redis
-  #   restart: unless-stopped
-
-  # nextcloud_cron:
-  #   image: nextcloud:21.0-fpm-alpine
-  #   container_name: nextcloud_cron
-  #   restart: unless-stopped
-  #   volumes:
-  #     - nextcloud:/var/www/html
-  #   entrypoint: /cron.sh
-
   moodle_dl:
     build: ./images/moodle_dl
     image: haztecaso/moodle_dl
@@ -182,6 +147,4 @@ volumes:
   etc-pihole:
   pihole-logs:
   syncthing:
-  nextcloud:
-  nextcloud_db:
   moodle_dl:
