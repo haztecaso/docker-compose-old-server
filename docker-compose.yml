@@ -139,11 +139,12 @@ services:
 
 volumes:
   nginx_logs:
-  git:
-  etc-dnsmasqd:
-  meshcentral-data:
-  meshcentral-files:
   etc-pihole:
   pihole-logs:
+  etc-dnsmasqd:
+  git:
+  meshcentral-data:
+  meshcentral-files:
+  vaultwarden:
   syncthing:
   moodle_dl:
