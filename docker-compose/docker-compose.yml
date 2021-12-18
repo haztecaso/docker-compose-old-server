@@ -72,16 +72,6 @@ services:
         - meshcentral-data:/home/node/meshcentral/meshcentral-data
         - meshcentral-files:/home/node/meshcentral/meshcentral-files
 
-  vaultwarden:
-    image: vaultwarden/server:alpine
-    container_name: vaultwarden
-    depends_on: [nginx]
-    restart: unless-stopped 
-    environment:
-      - WEBSOCKET_ENABLED=true  # Enable WebSocket notifications.
-    volumes:
-      - /srv/vaultwarden:/data
-
   icecast:
     image: infiniteproject/icecast
     container_name: "icecast"
@@ -171,7 +161,6 @@ volumes:
   git:
   meshcentral-data:
   meshcentral-files:
-  vaultwarden:
   syncthing:
   moodle_dl:
   firefly_iii_upload:
