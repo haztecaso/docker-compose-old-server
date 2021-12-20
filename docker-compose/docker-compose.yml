@@ -72,38 +72,6 @@ services:
         - meshcentral-data:/home/node/meshcentral/meshcentral-data
         - meshcentral-files:/home/node/meshcentral/meshcentral-files
 
-  icecast:
-    image: infiniteproject/icecast
-    container_name: "icecast"
-    env_file:
-      - .env
-    environment:
-      - ICECAST_SOURCE_PASSWORD
-      - ICECAST_ADMIN_PASSWORD
-      - ICECAST_RELAY_PASSWORD
-      - ICECAST_MAX_SOURCES
-      - ICECAST_ADMIN_EMAIL
-      - ICECAST_HOSTNAME=icecast
-    restart: unless-stopped
-
-  liquidsoap:
-    image: "savonet/liquidsoap:v1.4.3"
-    container_name: "liquidsoap"
-    depends_on: [icecast]
-    command: "liquidsoap /script.liq"
-    volumes:
-      - "${MUSIC_DIR}:/music:ro"
-      - "./config/liquidsoap/script.liq:/script.liq:ro"
-    env_file:
-      - .env
-    environment:
-      - ICECAST_SOURCE_PASSWORD
-      - STREAM_NAME
-      - STREAM_DESC
-      - STREAM_URL
-      - STREAM_MOUNTPOINT
-    restart: unless-stopped
-
   syncthing:
     image: "syncthing/syncthing"
     container_name: "syncthing"
