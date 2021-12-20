@@ -127,32 +127,6 @@ services:
       - moodle_dl:/moodle_dl
       - ./config/moodle_dl/config.json:/moodle_dl/config.json
 
-  firefly:
-    image: fireflyiii/core:latest
-    container_name: firefly
-    restart: always
-    volumes:
-      - firefly_iii_upload:/var/www/html/storage/upload
-    env_file: .firefly.env
-    ports:
-      - 8081:8080
-    depends_on:
-      - firefly_db 
-      - nginx
-
-  firefly_db:
-    image: mariadb    
-    hostname: fireflyiiidb
-    container_name: firefly_db
-    restart: always
-    environment:
-      - MYSQL_RANDOM_ROOT_PASSWORD=yes
-      - MYSQL_USER
-      - MYSQL_PASSWORD
-      - MYSQL_DATABASE
-    volumes:
-      - firefly_iii_db:/var/lib/mysql
-
 volumes:
   nginx_logs:
   etc-pihole:
@@ -163,5 +137,3 @@ volumes:
   meshcentral-files:
   syncthing:
   moodle_dl:
-  firefly_iii_upload:
-  firefly_iii_db:
