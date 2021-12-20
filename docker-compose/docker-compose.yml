@@ -118,15 +118,6 @@ services:
       - 22000:22000/udp
     restart: unless-stopped
 
-  moodle_dl:
-    build: ./images/moodle_dl
-    image: haztecaso/moodle_dl
-    container_name: moodle_dl
-    restart: unless-stopped 
-    volumes:
-      - moodle_dl:/moodle_dl
-      - ./config/moodle_dl/config.json:/moodle_dl/config.json
-
 volumes:
   nginx_logs:
   etc-pihole:
@@ -136,4 +127,3 @@ volumes:
   meshcentral-data:
   meshcentral-files:
   syncthing:
-  moodle_dl:
